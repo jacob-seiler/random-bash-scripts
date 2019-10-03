@@ -1,5 +1,4 @@
 #!/bin/bash
-
 total=0
 count=0
 
