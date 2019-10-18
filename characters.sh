@@ -1,6 +1,6 @@
 if [ $# == 0 ]
 then
-    echo "No arguments" #>&2
+    echo "No arguments" >&2
     exit 1
 fi
 
@@ -17,7 +17,7 @@ do
 
         if [[ $char != [a-zA-Z] ]]
         then
-            echo "Illegal character $char" #>&2
+            echo "Illegal character $char" >&2
             rm $file
             exit 2
         fi
