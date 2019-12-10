@@ -15,6 +15,10 @@ do
         else
             echo "ERROR: $file is not readable" >&2
         fi
+    elif [[ -d $file ]]
+    then
+        OUTPUT=$(bash ./checkInteresting.sh $file)
+        ((COUNT+=OUTPUT))
     fi
 done
 
