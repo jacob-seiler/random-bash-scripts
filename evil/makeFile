@@ -1,0 +1,12 @@
+CFLAGS=-Wall -ansi
+CC=gcc
+
+program: one.o two.o
+		gcc -o program one.o two.o
+
+one.o: one.c four.h
+
+two.o: two.c four.h
+
+one.c: one.source script1.sed
+		sed -rf script1.sed one.source >| one.c
