@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 struct stackCell
 {
@@ -22,7 +23,10 @@ typedef struct
  */
 int top(intStack *stk)
 {
-    return 0;
+    if (stk == NULL || stk->top == NULL)
+        return 0;
+
+    return stk->top->value;
 }
 
 /*
@@ -33,6 +37,10 @@ int top(intStack *stk)
  */
 void push(intStack *stk, int newval)
 {
+    struct stackCell *cell = malloc(sizeof(struct stackCell));
+    cell->value = newval;
+    cell->previous = stk->top;
+    stk->top = cell;
 }
 
 /*
@@ -42,6 +50,10 @@ void push(intStack *stk, int newval)
  */
 void pop(intStack *stk)
 {
+    if (stk == NULL || stk->top == NULL)
+        return;
+
+    stk->top = stk->top->previous;
 }
 
 /*
@@ -57,7 +69,9 @@ void printStack(intStack *stk)
         return;
     }
 
-    struct stackCell *current = stk->top;
+    struct stackCell *current = malloc(sizeof(struct stackCell));
+    current->value = stk->top->value;
+    current->previous = stk->top->previous;
 
     while (current != NULL)
     {
@@ -70,32 +84,22 @@ void printStack(intStack *stk)
 
 int main()
 {
-    // intStack myStack;
-    // myStack.top = NULL; // empty stack
-    // int i;
-    // for (i = 1; i <= 4; i++) {
-    //     push(&myStack, i);
-    //     printStack(&myStack);
-    // } // end for
-    // printf("\n");
-
-    // while (myStack.top != NULL) {
-    //     printf("top element: %d\n", top(&myStack));
-    //     pop(&myStack);
-    //     printStack(&myStack);
-    // } // end myStack
-
-    struct stackCell cell2;
-    cell2.value = 2;
-
-    struct stackCell cell;
-    cell.value = 1;
-    cell.previous = &cell2;
-
     intStack myStack;
-    myStack.top = &cell;
+    myStack.top = NULL; // empty stack
+    int i;
+    for (i = 1; i <= 4; i++)
+    {
+        push(&myStack, i);
+        printStack(&myStack);
+    } // end for
+    printf("\n");
 
-    printStack(&myStack);
+    while (myStack.top != NULL)
+    {
+        printf("top element: %d\n", top(&myStack));
+        pop(&myStack);
+        printStack(&myStack);
+    } // end myStack
 
     return 0;
 } // end main
