@@ -1,12 +1,13 @@
 #!/bin/bash
-total=0
-count=0
+TOTAL=0
+COUNT=0
 
-# while [[ $count -lt $1 ]]
-while (( $count  < $1 ))
+# while [[ $COUNT -lt $1 ]]
+while (( $COUNT < $1 ))
 do
-    ((total+=$(sh ./roll.sh)))
-    ((count++))
+    OUTPUT=$(./roll.sh)
+    ((TOTAL+=OUTPUT))
+    ((COUNT++))
 done
 
-echo $total
+echo $TOTAL
